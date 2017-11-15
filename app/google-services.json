@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "992623215581",
+    "firebase_url": "https://pushsiapp.firebaseio.com",
+    "project_id": "pushsiapp",
+    "storage_bucket": "pushsiapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992623215581:android:0a188b2510433486",
+        "android_client_info": {
+          "package_name": "com.example.pedroas93.platzi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992623215581-5tamivgrh86kh0b9od2u98l9ndm286eq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS95L6-EOLPhUidkI2prbAM1UVTOY6K6Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

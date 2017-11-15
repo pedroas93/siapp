@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:visibility="gone"
+    android:weightSum="1">
+
+
+
+    <!-- content header image -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="@color/SIAppBlueDark"
+        android:padding="40dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_weight="1">
+
+
+
+        <TextView
+            android:id="@+id/DOContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="DO"
+            android:textSize="22sp"/>
+        <TextView
+            android:id="@+id/codigoContent"
+            android:layout_below="@id/DOContent"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            />
+        <TextView
+            android:id="@+id/tipo"
+            android:layout_below="@id/codigoContent"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            />
+
+        <TextView
+            android:id="@+id/mercancia"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_alignParentRight="true"
+            android:textSize="12sp"
+            />
+
+        <TextView
+            android:id="@+id/agenciaAduanera"
+            android:layout_width="96dp"
+            android:text="Siacol Operador Económico S.A.S"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/mercancia"
+            android:textSize="12sp"
+            />
+
+
+    </RelativeLayout>
+
+    <!-- content body layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgContent"
+        android:orientation="vertical"
+        android:paddingBottom="6dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="9dp">
+
+
+
+        <!-- addresses part -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/content_from_badge"
+                    style="@style/ContentMainBadgeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/guiaContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/content_from_badge"
+                    android:layout_below="@id/content_from_badge"
+                    android:text="Guia:"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+
+                <TextView
+                    android:id="@+id/FacturaContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/guiaContent"
+                    android:text="Factura:"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/bultosContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/FacturaContent"
+                    android:text="Bultos:"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tasaContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bultosContent"
+                    android:text="Tasa de Cambio:"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/valorContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tasaContent"
+                    android:text="Valor:"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+
+
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/content_to_badge"
+                    style="@style/ContentMainBadgeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text=" " />
+                <TextView
+                    android:id="@+id/valorGuiaContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/content_to_badge"
+                    android:layout_below="@id/content_to_badge"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/valorFacturaContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/content_to_badge"
+                    android:layout_below="@id/valorGuiaContent"
+                    android:text="BS49568324"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/espacioContent3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/content_to_badge"
+                    android:layout_below="@id/valorFacturaContent"
+                    android:text="  "
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="14sp"/>
+                <TextView
+                    android:id="@+id/valorBultosContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/content_to_badge"
+                    android:layout_below="@id/espacioContent3"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="14sp"/>
+                <TextView
+                    android:id="@+id/valorTasaContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/content_to_badge"
+                    android:layout_below="@id/valorBultosContent"
+                    android:text="$2940.0 COP"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="14sp"/>
+                <TextView
+                    android:id="@+id/valorValorContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/content_to_badge"
+                    android:layout_below="@id/valorTasaContent"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="14sp"/>
+
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+            <!-- request button -->
+            <TextView
+                android:id="@+id/content_request_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/btnRequest"
+                android:padding="10dp"
+                android:text="@string/request_btn_text"
+                android:textAlignment="center"
+                android:textColor="@color/mainTextColor"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAlignment="center"
+                android:textColor="@color/contentBadgeTitle"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+</LinearLayout>
