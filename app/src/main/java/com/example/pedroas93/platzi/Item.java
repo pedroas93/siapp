@@ -257,7 +257,6 @@ public class Item extends AppCompatActivity {
 
     public void setRequestBtnClickListener(View.OnClickListener requestBtnClickListener) {
 
-        Log.i("SETREQUEST","ENTRO AL SET");
         this.requestBtnClickListener = requestBtnClickListener;
     }
 
