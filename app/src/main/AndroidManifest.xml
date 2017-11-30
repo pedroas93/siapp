@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pedroas93.platzi">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
+
 
     <application
         android:allowBackup="true"
@@ -50,7 +48,12 @@
             android:value="a4310f481be2198be365698bbe2246ff3c85e80c" />
 
         <activity android:name=".ListaProcesos" />
+        <activity android:name=".ListaProcesosExport" />
         <activity android:name=".CompletarRegistroActivity"></activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
 </manifest>

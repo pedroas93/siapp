@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 import org.json.JSONArray;
@@ -30,6 +31,7 @@ import data.remote.ApiUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.PUT;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -48,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     private APIService mAPIService;
     private APIService mAPIService2;
     private APIService mAPIService3;
+    private APIService mAPIServicePush;
 
     private Boolean entro=false;
     private int cont = 0;
@@ -101,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         mAPIService = ApiUtils.getAPIService();
         mAPIService2 = ApiUtils.getAPIService();
         mAPIService3 = ApiUtils.getAPIService();
+        mAPIServicePush = ApiUtils.getAPIService();
 
 
 
@@ -224,13 +228,41 @@ public class LoginActivity extends AppCompatActivity {
 
                     setToken(response.body().getData().getObjectData().getToken());
                     Log.i("TOKEN","EL TOKEN ES"+response.body().getData().getObjectData().getToken());
+
+                    final  String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+                    Log.i("Token actualizado: " , refreshedToken);
+
+
+                    mAPIServicePush.updateUser(response.body().getData().getObjectData().getToken(), refreshedToken, "Andorid").enqueue(new Callback<PUT>() {
+
+                        @Override
+                        public void onResponse(Call<PUT> call, Response<PUT> response) {
+                            if (response.isSuccessful()) {
+                                Log.i("ENTRO SENDPUSH","ENTRO");
+
+
+                            } else {
+
+                                Log.i("NOENTRO SENDPUSH","NOENTRO");
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<PUT> call, Throwable t) {
+
+                            Log.i("PUSH", "onFAILURE PUSH");
+
+                        }
+                    });
+
+
                     mAPIService2.me(response.body().getData().getObjectData().getToken()).enqueue(new Callback<Get>() {
 
                         @Override
                         public void onResponse(Call<Get> call, Response<Get> response2) {
                             if (response2.isSuccessful()) {
-                                Log.i("AntesDelIf--PPPPPPPP==","EntroGetME"+response2.body().toString());
-                                Log.i("AntesDelIf--GETME==","EntroGetME");
+
                                 //showResponse(response2.body().toString());
 
                                 String projectToken =  "df18039a6bd3854eaef7b015db29d002";
@@ -270,19 +302,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }else{
                                 Log.i("AntesDelIf--Processes==",response2.errorBody().toString());
-/*
-                                                                JSONObject jsonObject = null;
-                                                                try {
-                                                                    jsonObject = (new JSONObject(String.valueOf(response2))).getJSONObject("");
-                                                                } catch (JSONException e) {
-                                                                    e.printStackTrace();
-                                                                }
-                                                                try {
-                                                                    Log.i("AntesDelIf--Processes==","Hash"+jsonObject.toString(2));
-                                                                } catch (JSONException e) {
-                                                                    e.printStackTrace();
-                                                                }
-                                                                */
+
                             }
                         }
                         private SharedPreferences getSharedPreferences(String myPreferences, int modePrivate) {
@@ -295,7 +315,9 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Get> call, Throwable t) {
-                            Log.e("TAG", "Unable to submit post to API.");
+                            Log.e("TAG", "LLego aqui.");
+                            Log.i("QUE ES","LLEGO AQUI");
+
                         }
                     });
 
@@ -304,7 +326,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     entro = true;
+                    Log.i("Process","Antes del Process");
                     Intent irAVistaMenuActivity = new Intent(getApplicationContext(), Proccess.class);
+                    irAVistaMenuActivity.putExtra("parametro",getToken());
                     startActivity(irAVistaMenuActivity);
                     Log.i("TAG", "post submitted to API." + response.body().toString());
 //------------------Guardar Datos en una variable
@@ -365,7 +389,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
-                Log.e("TAG", "Unable to submit post to API.");
+                Log.e("TAG", "LLEGO aqui");
+                Log.i("ESTO ES", mAPIService.toString());
             }
         });
     }

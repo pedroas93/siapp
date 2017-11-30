@@ -37,5 +37,10 @@ public interface APIService {
                         ,@Field("new_password") String contraseña
                         ,@Field("created") Boolean getHash);
 
+    @PUT("/api/v1/users")
+    @FormUrlEncoded
+    Call<PUT> updateUser(@Header("Authorization") String token
+            ,@Field("deviceId") String token1
+            ,@Field("deviceType") String tipo);
 
 }

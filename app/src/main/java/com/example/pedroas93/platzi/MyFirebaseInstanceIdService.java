@@ -15,6 +15,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
 
     @Override
     public void onTokenRefresh() {
+        Log.i("firebase","firebase");
         String recent_token = FirebaseInstanceId.getInstance().getToken();
         Log.d(REG_TOKEN,recent_token);
     }

@@ -27,7 +27,7 @@ public class FoldingListaProcesos extends ArrayAdapter<ItemS> {
     private HashSet<Integer> unfoldedIndexes = new HashSet<>();
     private View.OnClickListener defaultRequestBtnClickListener;
 
-    public static int arriboA = 0, arriboL= 0;
+    public static int arriboA = 0, arriboL= 0,indice =0;;
 
 
     public FoldingListaProcesos(Context context, List<ItemS> objects) {
@@ -51,7 +51,6 @@ public class FoldingListaProcesos extends ArrayAdapter<ItemS> {
 
 
 
-            Log.i("ARRIBO "," ENTRA"+items.getArriboMercanciaStatus());
             Log.i("ARRIBO "," ENTRA"+ arriboA);
 
             // if(items.getArriboMercanciaStatus()!="fechaLlegada" ) {
@@ -70,11 +69,6 @@ public class FoldingListaProcesos extends ArrayAdapter<ItemS> {
 
             //if(items.getLiberado()!="liberado" ) {
 
-            Log.i("Libre "," ENTRA");
-
-            viewHolder.libre = (TextView) cell.findViewById(R.id.TituloList);
-            viewHolder.libreTitulo = (TextView) cell.findViewById(R.id.contenidoListArriba);
-            viewHolder.colorLibre= (TextView) cell.findViewById(R.id.TituloList);
 
 
             arriboA++;
@@ -94,21 +88,21 @@ public class FoldingListaProcesos extends ArrayAdapter<ItemS> {
 
 
         // bind data from selected element to view through view holder
-        viewHolder.arribo.setText("Fecha Llegada");
-        viewHolder.arriboStatus.setText(items.getArriboMercancia());
-        viewHolder.arriboTitulo.setText("Llegada de mercancía");
-        viewHolder.colorArribo.setBackgroundColor(Color.parseColor("#057905"));
 
+        viewHolder.arribo.setText(items.getStatus());
 
-        viewHolder.libre.setText("Liberado");
-        viewHolder.libreTitulo.setText("Liberación de documento de transporte");
-        viewHolder.colorLibre.setBackgroundColor(Color.parseColor("#057905"));
+        viewHolder.arriboStatus.setText(items.getMercancia());
+        viewHolder.arriboTitulo.setText(items.getDescripcion());
+        viewHolder.colorArribo.setBackgroundColor(Color.parseColor(items.getColor()));
+
+        //viewHolder.libreTitulo.setText("Liberación de documento de transporte");
+        //viewHolder.colorLibre.setBackgroundColor(Color.parseColor("#057905"));
 
 
 
 
         if (items.getRequestBtnClickListener() == null) {
-            viewHolder.contentRequestBtn.setOnClickListener(items.getRequestBtnClickListener());
+//          viewHolder.contentRequestBtn.setOnClickListener(items.getRequestBtnClickListener());
         } else {
             // (optionally) add "default" handler if no handler found in item
         }

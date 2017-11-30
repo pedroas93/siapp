@@ -3,9 +3,11 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
 
+
     repositories {
         mavenCentral()
     }
+
     dependencies {
         classpath 'io.fabric.tools:gradle:1.+'
         classpath 'com.google.gms:google-services:3.1.0'
@@ -31,9 +33,9 @@ dependencies {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId 'com.tesis.pedroas93.siapp'
+        applicationId 'com.example.pedroas93.platzi'
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -58,7 +60,16 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+
+    flavorDimensions "tier"
     productFlavors {
+        free{
+            dimension "tier"
+        }
+        full{
+            dimension "tier"
+        }
+
     }
 }
 

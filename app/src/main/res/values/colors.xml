@@ -51,7 +51,7 @@
     <color name="contentDividerLine">#e0e0e0</color>
     <color name="contentBadgeTitle">#a9a9a9</color>
     <color name="titleBadgeTitle">#adafb1</color>
-    <color name="titleBadgeText">#adafb1</color>
+    <color name="titleBadgeText">#f987898b</color>
     <color name="mainTextColor">#343d43</color>
     <color name="btnRequest">#F9A300</color>
     <color name="SIAppOrange">#F9A300</color>

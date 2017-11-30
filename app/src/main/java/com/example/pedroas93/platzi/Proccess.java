@@ -31,15 +31,18 @@ import data.remote.ApiUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.PUT;
 
 /**
  * Example of using Folding Cell with ListView and ListAdapter
  */
 public class Proccess extends AppCompatActivity {
 
-    private APIService mAPIService3;
+    private APIService mAPIService3, mAPIServicePush;
     public static ArrayList<Item> items ;
-    public static String a;
+    public static String a, tipo="";
+
+    public int poss=0;
 
 
     @Override
@@ -49,6 +52,7 @@ public class Proccess extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.i("INDICE","EL INDICE ES ENTRO1");
         mAPIService3 = ApiUtils.getAPIService();
+        mAPIServicePush = ApiUtils.getAPIService();
         Log.i("INDICE","EL INDICE ES ENTRO2");
 
 
@@ -89,16 +93,22 @@ public class Proccess extends AppCompatActivity {
 
                     Item item = new Item();
                     ItemS items = new ItemS();
+                    ItemE itemE = new ItemE();
 
                     Log.i("setProcess",""+response3.body().getData().getObjectData().getProcess().get(1).getSteps().toString());
 
                     //for indicamos la variable indice en 0 para recorrer toda la lista, de inicio a fin al final de cada iteracion el indice se incrementa en uno
-                    for(int indice = 0;indice<response3.body().getData().getObjectData().getProcess().size();indice++)
+                    int total =0;
+
+                    total =response3.body().getData().getObjectData().getProcess().size()-2;
+
+                    for(int indice = response3.body().getData().getObjectData().getProcess().size()-1;indice>=0;indice--)
                     {
 
 
 
-                        item.setTamaño(response3.body().getData().getObjectData().getProcess().size());
+                        Log.i("INDICEEEEEEE"," EL INDICE ES: "+ response3.body().getData().getObjectData().getProcess().size());
+                        response3.body().getData().getObjectData().getProcess().size();
                         item.setProcess(response3.body().getData().getObjectData().getProcess().get(indice).getPedido());
                         item.setType(response3.body().getData().getObjectData().getProcess().get(indice).getType());
                         Log.i("pedido","  "+response3.body().getData().getObjectData().getProcess().get(indice).getType());
@@ -111,26 +121,159 @@ public class Proccess extends AppCompatActivity {
                         item.setTasaCambio(Integer.toString(response3.body().getData().getObjectData().getProcess().get(indice).getTipoDeCambio()));
                         Log.i("FECHA ARRIBO",""+response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getArriboDeMercancia());
 
-                        if(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getArriboDeMercancia()== null ) {
+
+
+
+
+                        if(response3.body().getData().getObjectData().getProcess().get(indice).getType().equals("exportacion") ) {
+
+
+
+
+                            ////////////////////////////////////////////////////////////////////////////////////////////
+
+
+                            itemE.setGenerarV4(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getEntregaDeDocumentos().getStatus());
+
+                            itemE.setGenerarV3(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getFechaSalidaMercancia().getStatus());
+
+
+                            itemE.setGenerarV2(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getEntregaAerolinea().getStatus());
+
+
+                            itemE.setGenerarV1(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getSolicitudSelectividadDocTransporte().getStatus());
+
+                            itemE.setGenerarV(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getElaboracionDocExportacion().getStatus());
+
+                            for(int indice1 = 0;indice1<response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getGeneracionVistosBuenos().size();indice1++) {
+
+                                if(indice1==0) {
+                                    itemE.setGenerarVBStatus3(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getGeneracionVistosBuenos().get(indice1).getStatus());
+                                    itemE.setGenerarVBNombre3(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getGeneracionVistosBuenos().get(indice1).getName());
+
+
+                                 }
+                                if(indice1==1) {
+                                    itemE.setGenerarVBStatus2(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getGeneracionVistosBuenos().get(indice1).getStatus());
+                                    itemE.setGenerarVBNombre2(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getGeneracionVistosBuenos().get(indice1).getName());
+
+
+                                 }
+                                if(indice1==2) {
+
+                                    itemE.setGenerarVBStatus1(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getGeneracionVistosBuenos().get(indice1).getStatus());
+                                    itemE.setGenerarVBNombre1(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getGeneracionVistosBuenos().get(indice1).getName());
+
+                                }
+                                if(indice1==3) {
+                                    itemE.setGenerarVBStatus(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getGeneracionVistosBuenos().get(indice1).getStatus());
+                                    itemE.setGenerarVBNombre(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getGeneracionVistosBuenos().get(indice1).getName());
+                                }
+
+                            }
+
+                             itemE.setRecepcionDocValor(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getRecepcionDeDocumentos().getValue());
+                             itemE.setRecepcionDoc(response3.body().getData().getObjectData().getProcess().get(0).getSteps().getRecepcionDeDocumentos().getStatus().toString());
+
+                            ////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+                            itemE.itemE = ItemE.getTestingList();
+
+
 
                         }else{
 
+
+                            tipo=response3.body().getData().getObjectData().getProcess().get(indice).getType();
                             Log.i("CUAL","Cual es --"+response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getArriboDeMercancia().getValue().toString());
                             Log.i("CUAL","Cual es --"+response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getArriboDeMercancia().getStatus());
                             items.setArriboMercancia(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getArriboDeMercancia().getValue().toString());
                             items.setArriboMercanciaStatus(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getArriboDeMercancia().getStatus());
 
+                            items.setPreinspeccion(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getPreinspeccion().getStatus());
+
                             items.setLiberado(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getLiberacionDeDocDeTransporte().getStatus());
 
-                            for(int indice1 = 1;indice1<response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionVistosBuenos().size();indice1++) {
+
+
+                            for(int indice1 = response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionVistosBuenos().size()-1;indice1>=0;indice1--) {
                                 Log.i("FOR","en la posicion indice1 --"+response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionVistosBuenos().get(indice1).getName());
-                                item.setValorv(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionVistosBuenos().get(indice1).getName());
-                                item.setLlegada(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionVistosBuenos().get(indice1).getStatus());
+
+                                if(indice1==0) {
+                                    items.setValidacionv(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionVistosBuenos().get(indice1).getName());
+                                    items.setValidacionvNombre(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionVistosBuenos().get(indice1).getStatus());
+
+                                }
+
+                                if(indice1==1){
+                                    items.setValidacionv1(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionVistosBuenos().get(indice1).getName());
+                                    items.setValidacionvNombre1(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionVistosBuenos().get(indice1).getStatus());
+                                }
+
+                                if(indice1==2){
+                                    items.setValidacionv2(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionVistosBuenos().get(indice1).getName());
+                                    items.setValidacionvNombre2(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionVistosBuenos().get(indice1).getStatus());
+
+                                }
+                            }
+
+                            for(int indice1 = 0;indice1<response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionDocumentos().size();indice1++) {
+
+                                if(indice1==0) {
+                                    items.setValidacionDoc(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionDocumentos().get(indice1).getName());
+                                    items.setValidacionNombreDoc(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionDocumentos().get(indice1).getStatus());
+                                }
+
+                                if(indice1==1) {
+                                    items.setValidacionDoc1(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionDocumentos().get(indice1).getName());
+                                    items.setValidacionNombreDoc1(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionDocumentos().get(indice1).getStatus());
+                                }
+
+                                if(indice1==2) {
+                                    items.setValidacionDoc2(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionDocumentos().get(indice1).getName());
+                                    items.setValidacionNombreDoc2(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getValidacionDocumentos().get(indice1).getStatus());
+                                }
 
                             }
-                            items.items = ItemS.getTestingList( );
+
+                            for(int indice1 = 0;indice1<response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getElaboracionDeDocDeImportacion().size();indice1++) {
+
+                                if(indice1==0) {
+                                    items.setValidacionElaboracion(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getElaboracionDeDocDeImportacion().get(indice1).getName());
+                                    items.setValidacionNombreElaboracion(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getElaboracionDeDocDeImportacion().get(indice1).getStatus());
+                                }
+
+                                if(indice1==1) {
+                                    items.setValidacionElaboracion1(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getElaboracionDeDocDeImportacion().get(indice1).getName());
+                                    items.setValidacionNombreElaboracion1(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getElaboracionDeDocDeImportacion().get(indice1).getStatus());
+
+                                }
+
+
+                            }
+
+                            items.setSolicitud(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getAnticipoAGirar().getStatus());
+                            items.setPagoTributos(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getPagoDeTributos().getStatus());
+                            items.setLevante(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getLevante().getStatus());
+                            items.setRetiroMercancia(response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getRetiroDeMercancias().getStatus());
+
+
+
+                            /////////////////////////////////////////////////////////////////////EXPORTACIÓN////////////////////////////////////////////////////////////////////////////
+
+                            items.items = ItemS.getTestingList();
+
+
+
                         }
 
+
+                        llenarExportacion();
 
                         Log.i("pedido",""+response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getArriboDeMercancia());
                         //Log.i("STEPS",""+response3.body().getData().getObjectData().getProcess().get(indice).getSteps().getArriboDeMercancia().getStatus());
@@ -139,7 +282,7 @@ public class Proccess extends AppCompatActivity {
                         item.items = Item.getTestingList( );
 
                     }
-                    llenar();
+
                 }else{
 
                     Log.i("AntesDelIf--NO---",response3.message());
@@ -203,6 +346,33 @@ public class Proccess extends AppCompatActivity {
 
                 writeJSONObject("null");
 
+            ////////////////////////////////////////////////
+
+                mAPIServicePush.updateUser(getIntent().getExtras().getString("parametro"), "", "").enqueue(new Callback<PUT>() {
+
+                    @Override
+                    public void onResponse(Call<PUT> call, Response<PUT> response) {
+                        if (response.isSuccessful()) {
+                            Log.i("ENTRO SENDPUSH","ENTRO");
+
+
+                        } else {
+
+                            Log.i("NOENTRO SENDPUSH","NOENTRO");
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PUT> call, Throwable t) {
+                        Log.i("PUSH","NO ENTRO PUSH PROCESS");
+                    }
+                });
+
+                //////////////////////////////////////////////
+
+
+
                 Intent irAVistaMenuActivity = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(irAVistaMenuActivity);
                 return true;
@@ -219,7 +389,7 @@ public class Proccess extends AppCompatActivity {
     }
 
 
-    private void llenar(){
+    private void llenarImportacion(){
 
 
         // get our list view
@@ -228,19 +398,11 @@ public class Proccess extends AppCompatActivity {
         // prepare elements to display
 
 
-        Log.i("INDICE","EL INDICE ES ENTRO10000");
-        Log.i("ITEMS","Items esta asi ="+items.toString());
+        Log.i("IMPORTACION","LLEGO A IMPORTACIONNNNNNNNNNNNNNNNNNNNNNN");
+
 
         // add custom btn handler to first list item
-        items.get(0).setRequestBtnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Log.i("Ver mas","ENTRO A VER MAS");
-                Intent irListaP = new Intent(getApplicationContext(), ListaProcesos.class);
-                startActivity(irListaP);
-            }
-        });
 
         // create custom adapter that holds elements and their state (we need hold a id's of unfolded elements for reusable elements)
         final FoldingCellListAdapter adapter = new FoldingCellListAdapter(this, items);
@@ -249,8 +411,9 @@ public class Proccess extends AppCompatActivity {
         adapter.setDefaultRequestBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent irListaP = new Intent(getApplicationContext(), ListaProcesos.class);
-                startActivity(irListaP);
+
+                    Intent irListaP = new Intent(getApplicationContext(), ListaProcesos.class);
+                    startActivity(irListaP);
             }
         });
 
@@ -264,10 +427,85 @@ public class Proccess extends AppCompatActivity {
                 // toggle clicked cell state
                 ((FoldingCell) view).toggle(false);
                 // register in adapter that state for selected cell is toggled
-                adapter.registerToggle(pos);
+                adapter.registerToggle(0);
             }
         });
+
     }
+
+
+
+    private void llenarExportacion(){
+
+
+
+        Log.i("EXPORTACION","LLEGO A EXPORTACIONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+
+        // get our list view
+        ListView theListView = (ListView) findViewById(R.id.mainListView);
+
+
+        // create custom adapter that holds elements and their state (we need hold a id's of unfolded elements for reusable elements)
+        final FoldingCellListAdapter adapter = new FoldingCellListAdapter(this, items);
+
+        // set on click event listener to list view
+        theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                // toggle clicked cell state
+                ((FoldingCell) view).toggle(false);
+                // register in adapter that state for selected cell is toggled
+                adapter.registerToggle(pos);
+                Log.i("POSSSSSSSSSS","POS ES ="+pos);
+                poss =pos;
+            }
+        });
+
+
+
+        // add default btn handler for each request btn on each item if custom handler not found
+        adapter.setDefaultRequestBtnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.i("POSSSSLLEGANDO","POSLLEGANDOOOOOOOOOO ES ="+poss);
+                if(poss ==0 || poss ==1) {
+                    Log.i("POSSSSLLEGANDO1","POSLLEGANDOOOOOOOOOO ES ="+poss);
+                    Intent irListaP = new Intent(getApplicationContext(), ListaProcesosExport.class);
+                    startActivity(irListaP);
+                }else{
+                    Log.i("POSSSSLLEGANDO2","POSLLEGANDOOOOOOOOOO ES ="+poss);
+                    Intent irListaP = new Intent(getApplicationContext(), ListaProcesos.class);
+                    startActivity(irListaP);
+
+                }
+
+            }
+        });
+
+        // set elements to adapter
+        theListView.setAdapter(adapter);
+
+
+
+
+
+
+
+
+    }
+
+
+
+    private void ir(){
+
+        Intent irListaP = new Intent(getApplicationContext(), ListaProcesosExport.class);
+        startActivity(irListaP);
+
+    }
+
+
+
 
 
     private	void	writeJSONObject(String response){

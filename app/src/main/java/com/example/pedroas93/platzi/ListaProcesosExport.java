@@ -19,21 +19,26 @@ import java.io.FileWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 
-public class ListaProcesos extends AppCompatActivity {
+/**
+ * Created by pedroas93 on 29/11/17.
+ */
 
-    public static ArrayList<ItemS> items ;
+public class ListaProcesosExport extends AppCompatActivity {
+
+
+    public static ArrayList<ItemE> itemE ;
     public static String a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_procesos);
+        setContentView(R.layout.activity_lista_procesoext);
 
 
-        ListView theListView = (ListView) findViewById(R.id.ListaProcesos);
+        ListView theListView = (ListView) findViewById(R.id.ListaProcesoext);
 
         // prepare elements to display
-        final ArrayList<ItemS> items = ItemS.getTestingList();
+        final ArrayList<ItemE> itemE = ItemE.getTestingList();
 
 
 
@@ -42,7 +47,7 @@ public class ListaProcesos extends AppCompatActivity {
 
 
         // create custom adapter that holds elements and their state (we need hold a id's of unfolded elements for reusable elements)
-        final FoldingListaProcesos adapter = new FoldingListaProcesos(this, items);
+        final FoldingListaProcesosExport adapter = new FoldingListaProcesosExport(this, itemE);
 
         // add default btn handler for each request btn on each item if custom handler not found
         // set elements to adapter
@@ -109,10 +114,10 @@ public class ListaProcesos extends AppCompatActivity {
 
 
         Log.i("INDICE","EL INDICE ES ENTRO10000");
-        Log.i("ITEMS","Items esta asi ="+items.toString());
+        Log.i("ITEMS","Items esta asi ="+itemE.toString());
 
         // add custom btn handler to first list item
-        items.get(0).setRequestBtnClickListener(new View.OnClickListener() {
+        itemE.get(0).setRequestBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -123,7 +128,7 @@ public class ListaProcesos extends AppCompatActivity {
         });
 
         // create custom adapter that holds elements and their state (we need hold a id's of unfolded elements for reusable elements)
-        final FoldingListaProcesos adapter = new FoldingListaProcesos(this, items);
+        final FoldingListaProcesosExport adapter = new FoldingListaProcesosExport(this, itemE);
 
         // add default btn handler for each request btn on each item if custom handler not found
         adapter.setDefaultRequestBtnClickListener(new View.OnClickListener() {

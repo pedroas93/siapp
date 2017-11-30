@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import data.remote.APIService;
 import data.remote.ApiUtils;
 import retrofit2.Call;
@@ -27,7 +29,7 @@ public class CompletarRegistroActivity extends AppCompatActivity {
 
 
 
-    private APIService mAPIServiceP;
+    private APIService mAPIServiceP,mAPIServicePush ;
 
     public static LoginActivity getLogin() {
         return login;
@@ -46,6 +48,7 @@ public class CompletarRegistroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_completar_registro);
 
         mAPIServiceP = ApiUtils.getAPIService();
+        mAPIServicePush = ApiUtils.getAPIService();
 
 
         final EditText nombre = (EditText) findViewById(name);
@@ -106,6 +109,10 @@ public class CompletarRegistroActivity extends AppCompatActivity {
 
     public void sendPutUser(final String token, final String nombreS, final String cedulaS, final String emailS, final String contraseñaS, final String cContraseñaS, final String numeroS, final String direccionS) {
 
+        final  String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+
+        Log.i("Token actualizado: " , refreshedToken);
+
         Log.i("Entro sendPutUser==","Entro");
         mAPIServiceP.updateUser(token, nombreS, numeroS, direccionS, contraseñaS, true).enqueue(new Callback<PUT>() {
 
@@ -113,6 +120,53 @@ public class CompletarRegistroActivity extends AppCompatActivity {
             public void onResponse(Call<PUT> call, Response<PUT> response) {
                 if (response.isSuccessful()) {
                     Log.i("NENTRO SENDPUTUSER==","ENTRO");
+
+
+                    /////////////////////////SERVICIO DE REGISTRO DE PUSH!///////////////////////////
+
+
+
+
+
+                    mAPIServicePush.updateUser(token, refreshedToken, "Andorid").enqueue(new Callback<PUT>() {
+
+                        @Override
+                        public void onResponse(Call<PUT> call, Response<PUT> response) {
+                            if (response.isSuccessful()) {
+                                Log.i("ENTRO SENDPUSH","ENTRO");
+
+
+                            } else {
+
+                                Log.i("NOENTRO SENDPUSH","NOENTRO");
+
+                            }
+                        }
+
+                        private SharedPreferences getSharedPreferences(String myPreferences, int modePrivate) {
+                            int modePrivatee;
+                            String myPreferencess;
+                            modePrivatee = modePrivate;
+                            myPreferencess = myPreferences;
+                            return null;
+                        }
+
+                        @Override
+                        public void onFailure(Call<PUT> call, Throwable t) {
+                            Intent irAVistaMenuActivity = new Intent(getApplicationContext(), Proccess.class);
+                            startActivity(irAVistaMenuActivity);
+                        }
+                    });
+
+
+
+                    /////////////////////////¡SERVICIO DE REGISTRO DE PUSH///////////////////////////
+
+
+
+
+
+
                     Intent irAVistaMenuActivity = new Intent(getApplicationContext(), Proccess.class);
                     startActivity(irAVistaMenuActivity);
                 } else {

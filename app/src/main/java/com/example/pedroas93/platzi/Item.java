@@ -268,12 +268,8 @@ public class Item extends AppCompatActivity {
         if(primero==0) {
                 primero=1;
         }else{
-            Log.i("pedido", "EL INDICE ES if" + process.getPedido()+"jummm"+ process.getId());
                 items.add(indice, new Item("DO","52%", process.getPedido(), "Progreso", process.getId(), process.getType(), process.getId(),
                         process.getGuiaAereaMaritima(), process.getFactura(), String.valueOf(process.getBultos()), String.valueOf(process.getValor()), String.valueOf(process.getTipoDeCambio())));
-
-                indice++;
-                Log.i("Indice", "EL INDICE ES for" + indice);
 
 
         }
