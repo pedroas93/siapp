@@ -128,9 +128,10 @@ public class CompletarRegistroActivity extends AppCompatActivity {
 
 
 
-                    mAPIServicePush.updateUser(token, refreshedToken, "Andorid").enqueue(new Callback<PUT>() {
+                        updateUser up= new updateUser(refreshedToken,"Android");
+                        mAPIServicePush.updateUser(token, up).enqueue(new Callback<PUT>() {
 
-                        @Override
+                            @Override
                         public void onResponse(Call<PUT> call, Response<PUT> response) {
                             if (response.isSuccessful()) {
                                 Log.i("ENTRO SENDPUSH","ENTRO");

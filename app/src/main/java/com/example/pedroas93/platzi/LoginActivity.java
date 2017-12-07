@@ -232,8 +232,8 @@ public class LoginActivity extends AppCompatActivity {
                     final  String refreshedToken = FirebaseInstanceId.getInstance().getToken();
                     Log.i("Token actualizado: " , refreshedToken);
 
-
-                    mAPIServicePush.updateUser(response.body().getData().getObjectData().getToken(), refreshedToken, "Andorid").enqueue(new Callback<PUT>() {
+                    updateUser up= new updateUser(refreshedToken,"Android");
+                    mAPIServicePush.updateUser(response.body().getData().getObjectData().getToken(), up).enqueue(new Callback<PUT>() {
 
                         @Override
                         public void onResponse(Call<PUT> call, Response<PUT> response) {

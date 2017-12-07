@@ -19,16 +19,26 @@ import java.io.FileWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 
+import data.remote.APIService;
+import data.remote.ApiUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.PUT;
+
 public class ListaProcesos extends AppCompatActivity {
 
+    private APIService mAPIServicePush;
     public static ArrayList<ItemS> items ;
     public static String a;
+    public static float total=0, unitario=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_procesos);
 
+        mAPIServicePush = ApiUtils.getAPIService();
 
         ListView theListView = (ListView) findViewById(R.id.ListaProcesos);
 
@@ -75,6 +85,7 @@ public class ListaProcesos extends AppCompatActivity {
         int id= item.getItemId();
 
 
+
         switch (id){
 
             case R.id.menu_opcion:
@@ -82,6 +93,42 @@ public class ListaProcesos extends AppCompatActivity {
                 LoginActivity loginActivity = new LoginActivity();
 
                 writeJSONObject("null");
+
+                ////////////////////////////////////////////////
+
+
+
+
+                String uno = null,dos = null;
+                Object object = null;
+                Object object1 = null;
+                updateUser up= new updateUser("","");
+                mAPIServicePush.updateUser(getIntent().getExtras().getString("parametro"),up).enqueue(new Callback<PUT>() {
+
+
+                    @Override
+                    public void onResponse(Call<PUT> call, Response<PUT> response) {
+                        Log.i("ANTES DEL PUSH","ENTRO");
+                        if (response.isSuccessful()) {
+                            Log.i("ENTRO SENDPUSH","ENTRO");
+
+
+                        } else {
+
+                            Log.i("NOENTRO SENDPUSH","NOENTRO");
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PUT> call, Throwable t) {
+                        Log.i("PUSH","NO ENTRO PUSH PROCESS");
+                    }
+                });
+
+                //////////////////////////////////////////////
+
+
 
                 Intent irAVistaMenuActivity = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(irAVistaMenuActivity);
@@ -97,7 +144,6 @@ public class ListaProcesos extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     private void llenar(){
 

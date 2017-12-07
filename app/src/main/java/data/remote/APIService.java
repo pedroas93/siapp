@@ -1,8 +1,11 @@
 package data.remote;
 
+import com.example.pedroas93.platzi.updateUser;
+
 import data.model.Me.Get;
 import data.model.Post;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -10,8 +13,13 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
+
 public interface APIService {
 
+
+
+    public static Object object3 = null;
+    public static Object object2 = null;
 
     @POST("/api/v1/users/login")
     @FormUrlEncoded
@@ -37,10 +45,10 @@ public interface APIService {
                         ,@Field("new_password") String contraseña
                         ,@Field("created") Boolean getHash);
 
+
     @PUT("/api/v1/users")
-    @FormUrlEncoded
     Call<PUT> updateUser(@Header("Authorization") String token
-            ,@Field("deviceId") String token1
-            ,@Field("deviceType") String tipo);
+            , @Body updateUser updateUser);
+
 
 }

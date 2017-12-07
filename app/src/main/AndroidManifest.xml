@@ -2,12 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pedroas93.platzi">
 
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="SIAPP"
+        android:label=" "
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".WelcomeActivity">
@@ -49,11 +51,9 @@
 
         <activity android:name=".ListaProcesos" />
         <activity android:name=".ListaProcesosExport" />
-        <activity android:name=".CompletarRegistroActivity"></activity>
+        <activity android:name=".CompletarRegistroActivity" />
+        <activity android:name=".NoProceso" />
+        <activity android:name=".SplashScreenActivity"></activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
 
 </manifest>

@@ -150,19 +150,6 @@ public class FoldingListaProcesos extends ArrayAdapter<ItemS> {
 
         TextView colorArribo;
 
-        //Libre
-        TextView libre;
-        TextView libreStatus;
-        TextView libreTitulo;
-
-        TextView colorLibre;
-
-
-        TextView contentRequestBtn;
-        TextView llegada;
-        TextView llegada2;
-        TextView vv2;
-        TextView TituloList;
     }
 }
 

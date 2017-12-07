@@ -18,7 +18,7 @@ import data.model.Process.ValidacionVistosBueno;
 public class Item extends AppCompatActivity {
 
     private String price;
-    private String pledgePrice;
+    private int pledgePrice;
     private String fromAddress;
     private String toAddress;
     private String date;
@@ -32,7 +32,7 @@ public class Item extends AppCompatActivity {
     private String vv;
     private String arribo;
     private String arriboStatus;
-    private String validacionv;
+    private String validacionv,resource,resource2;
     public static int indice=0, primero=0,indice2=0, primero2=0;
 
     public static ArrayList<Item> items = new ArrayList<>();
@@ -60,6 +60,9 @@ public class Item extends AppCompatActivity {
 
     public static LiberacionDeDocDeTransporte liberacionDeDocDeTransporte = new LiberacionDeDocDeTransporte();
 
+    public static ItemE item = new ItemE();
+    public static ItemS itemss = new ItemS();
+
 
 
     private View.OnClickListener requestBtnClickListener;
@@ -67,9 +70,10 @@ public class Item extends AppCompatActivity {
     public Item() {
     }
 
-    public Item(String price, String pledgePrice, String fromAddress, String toAddress, String date, String time, String cod, String guia, String factura,String bultos ,String v, String valorTasaContent) {
+    public Item(String price, float pledgePrice, String fromAddress, String toAddress, String date,
+                String time, String cod, String guia, String factura,String bultos ,String v, String valorTasaContent,String resource, String resource2) {
         this.price = price;
-        this.pledgePrice = pledgePrice;
+        this.pledgePrice = (int)pledgePrice;
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.date = date;
@@ -80,6 +84,8 @@ public class Item extends AppCompatActivity {
         this.bulto = bultos;
         this.vv = v;
         this.tipoCambio = valorTasaContent;
+        this.resource = resource;
+        this.resource2 = resource2;
     }
 
 
@@ -95,6 +101,7 @@ public class Item extends AppCompatActivity {
     public void setType(String tipo) {
         this.process.setType(tipo);
     }
+    public String getType(){ return this.process.getType();}
     public void setProcessId(String id) {
         this.process.setId(id);
     }
@@ -135,9 +142,21 @@ public class Item extends AppCompatActivity {
     }
 
 
+    public String getResource() {
+        return resource;
+    }
 
+    public void setResource(String resource) {
+        this.resource = resource;
+    }
 
+    public String getResource2() {
+        return resource2;
+    }
 
+    public void setResource2(String resource2) {
+        this.resource2 = resource2;
+    }
 
     public void setValorv(String vvv) {
 
@@ -154,32 +173,6 @@ public class Item extends AppCompatActivity {
         Log.i("ARRIBO MERCANCIA", "ASI LELGO  "+vvv);
         this.validacionVistosBueno2.setName(vvv);
     }
-    public String getValorv2() {
-
-        return this.validacionVistosBueno2.getName();
-    }
-
-
-    public void setLlegada(String llegada) {
-
-        Log.i("LLEGADA MERCANCIA", "ASI LLEGO  "+llegada);
-        this.validacionVistosBueno.setStatus(llegada);
-    }
-    public String getLlegada() {
-
-        return this.validacionVistosBueno.getStatus();
-    }
-
-    public void setLlegadav2(String llegada) {
-
-        Log.i("LLEGADA MERCANCIA", "ASI LLEGO  "+llegada);
-        this.validacionVistosBueno2.setStatus(llegada);
-    }
-    public String getLlegadav2() {
-
-        return this.validacionVistosBueno2.getStatus();
-    }
-
 
     //ARRIBO
 
@@ -207,13 +200,10 @@ public class Item extends AppCompatActivity {
         this.price = price;
     }
 
-    public String getPledgePrice() {
+    public int getPledgePrice() {
         return pledgePrice;
     }
 
-    public void setPledgePrice(String pledgePrice) {
-        this.pledgePrice = pledgePrice;
-    }
 
     public String getFromAddress() {
         return fromAddress;
@@ -265,12 +255,32 @@ public class Item extends AppCompatActivity {
 
 
 
+
+
+        Log.i("UNITARIOOOOOOOOOOOOO"," valorrrrrrrrrrrrr"+ item.getUnitario());
+        Log.i("UNcompletaOOOOOOOOOO", ""+item.getCompletado());
+        Log.i("UNssssssssssssssssss"," valorrrrrrrrrrrrr"+ itemss.getUnitario());
+        Log.i("UNsssnnnnnnnnnnnnnnnn", ""+itemss.getTotal());
+
+
         if(primero==0) {
                 primero=1;
         }else{
-                items.add(indice, new Item("DO","52%", process.getPedido(), "Progreso", process.getId(), process.getType(), process.getId(),
-                        process.getGuiaAereaMaritima(), process.getFactura(), String.valueOf(process.getBultos()), String.valueOf(process.getValor()), String.valueOf(process.getTipoDeCambio())));
 
+
+
+                if (process.getType().equals("exportacion")) {
+                    if(item.getUnitario()!=0 ) {
+                        items.add(indice, new Item("DO", (item.getCompletado() / item.getUnitario()) * 100, process.getPedido(), "Progreso", process.getId(), process.getType(), process.getId(),
+                                process.getGuiaAereaMaritima(), process.getFactura(), String.valueOf(process.getBultos()), String.valueOf(process.getValor()), String.valueOf(process.getTipoDeCambio()), "@drawable/resource", "resource3"));
+                    }
+                    } else {
+
+                    if(itemss.getTotal()!=0) {
+                        items.add(indice, new Item("DO", (itemss.getUnitario() / itemss.getTotal()) * 100, process.getPedido(), "Progreso", process.getId(), process.getType(), process.getId(),
+                                process.getGuiaAereaMaritima(), process.getFactura(), String.valueOf(process.getBultos()), String.valueOf(process.getValor()), String.valueOf(process.getTipoDeCambio()),"resource5", "resource6"));
+                    }
+                }
 
         }
 

@@ -23,11 +23,6 @@ import data.model.Process.ValidacionVistosBueno;
  */
 public class ItemS extends AppCompatActivity {
 
-    private String price;
-    private String pledgePrice;
-    private String fromAddress;
-    private String toAddress;
-    private String date;
     private String time;
     private String cod;
     private String guia;
@@ -51,6 +46,7 @@ public class ItemS extends AppCompatActivity {
     private  static String recepcionDoc, recepcionValor;
     private  static String elaboracionNombre,elaboracionNombre1;
     public static int indice=0, primero=0,indice2=0, primero2=0;
+    public static float unitario=0,total=0;
 
     public static ArrayList<ItemS> items = new ArrayList<>();
 
@@ -95,22 +91,20 @@ public class ItemS extends AppCompatActivity {
 
     }
 
-    public ItemS(String liberado) {
-
-        this.liberado = liberado;
-
+    public static float getUnitario() {
+        return unitario;
     }
 
-
-    public void setValorBultosContent(String bultos) {
-
-        Log.i("BULTOS LLEGA ASI", "ASI LELGO"+bultos);
-
-        this.process.setBultos(Integer.parseInt(bultos));
+    public static void setUnitario(float unitario) {
+        ItemS.unitario = unitario;
     }
 
-    public String getValidacionv() {
-        return validacionv;
+    public static float getTotal() {
+        return total;
+    }
+
+    public static void setTotal(float total) {
+        ItemS.total = total;
     }
 
     public void setValidacionv(String validacionv) {
@@ -194,97 +188,11 @@ public class ItemS extends AppCompatActivity {
         this.retiro = retiro;
     }
 
-    public void setRecepcionDoc(String recepcionDoc) {
-        this.recepcionDoc = recepcionDoc;
-    }
-
-    public void setRecepcionDocValor(String valor) {
-        this.recepcionValor = valor;
-    }
 
 
     public void setProcess(String pedido) {
         this.process.setPedido(pedido);
     }
-    public void setType(String tipo) {
-        this.process.setType(tipo);
-    }
-    public void setProcessId(String id) {
-        this.process.setId(id);
-    }
-
-    public void setGuiaPedido(String Guia) {
-        this.process.setGuiaAereaMaritima(Guia);
-    }
-
-    public void setValorFacturaContent(String valorFacturaContent) {
-        this.process.setFactura(valorFacturaContent);
-    }
-
-    public void setValorValorContent(String vv) {
-        this.process.setValor(Integer.parseInt(vv));
-    }
-
-    public int getTamaño() {
-        return tamaño;
-    }
-
-    public void setTamaño(int tamaño) {
-        this.tamaño = tamaño;
-    }
-
-    public void setTasaCambio(String tipoCambio) {
-
-        Log.i("TASA CAMBIO ", "ASI LELGO  "+tipoCambio);
-        this.process.setTipoDeCambio(Integer.parseInt(tipoCambio));
-    }
-
-
-
-
-
-
-    public void setValorv(String vvv) {
-
-        Log.i("ARRIBO MERCANCIA", "ASI LELGO  "+vvv);
-        this.validacionVistosBueno.setName(vvv);
-    }
-    public String getValorv() {
-
-        return this.validacionVistosBueno.getName();
-    }
-
-    public void setValorv2(String vvv) {
-
-        Log.i("ARRIBO MERCANCIA", "ASI LELGO  "+vvv);
-        this.validacionVistosBueno2.setName(vvv);
-    }
-    public String getValorv2() {
-
-        return this.validacionVistosBueno2.getName();
-    }
-
-
-    public void setLlegada(String llegada) {
-
-        Log.i("LLEGADA MERCANCIA", "ASI LLEGO  "+llegada);
-        this.validacionVistosBueno.setStatus(llegada);
-    }
-    public String getLlegada() {
-
-        return this.validacionVistosBueno.getStatus();
-    }
-
-    public void setLlegadav2(String llegada) {
-
-        Log.i("LLEGADA MERCANCIA", "ASI LLEGO  "+llegada);
-        this.validacionVistosBueno2.setStatus(llegada);
-    }
-    public String getLlegadav2() {
-
-        return this.validacionVistosBueno2.getStatus();
-    }
-
 
     //ARRIBOValune
 
@@ -379,6 +287,9 @@ public class ItemS extends AppCompatActivity {
             Log.i("pedido", "EL INDICE ES if " + process.getPedido() + " jummm " + process.getId());
             String color = "";
             if (indice == 0) {
+
+                setTotal(getTotal()+1);
+
                 validacion = arriboDeMercancia.getValue();
 
                 if (arriboDeMercancia.getStatus().equals("pendiente")) {
@@ -386,6 +297,8 @@ public class ItemS extends AppCompatActivity {
                     color = "#F9A300";
 
                 } else {
+
+                    setUnitario(getUnitario()+1);
 
                     color = "#408000";
 
@@ -399,12 +312,14 @@ public class ItemS extends AppCompatActivity {
             if (indice == 1) {
 
 
+                setTotal(getTotal()+1);
                 if (liberacionDeDocDeTransporte.getStatus().equals("pendiente") || liberacionDeDocDeTransporte.getStatus().equals("en Proceso")) {
 
                     color = "#F9A300";
 
                 } else {
 
+                    setUnitario(getUnitario()+1);
                     color = "#408000";
 
                 }
@@ -417,12 +332,14 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 2) {
 
+                setTotal(getTotal()+1);
                 if (preinspeccion.getStatus().equals("pendiente") || preinspeccion.getStatus().equals("en Tramite")) {
 
                     color = "#F9A300";
 
                 } else {
 
+                    setUnitario(getUnitario()+1);
                     color = "#408000";
 
                 }
@@ -436,6 +353,7 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 3) {
 
+                setTotal(getTotal()+1);
                 if (validacionvNombre.equals("pendiente") || validacionvNombre.equals("en tramite")) {
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + validacionvNombre);
@@ -444,7 +362,7 @@ public class ItemS extends AppCompatActivity {
                 } else {
                     Log.i("validacionvNombre2VERDE", "igual a ==" + validacionvNombre);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 if (validacionvNombre.equals("rechazado")) {
@@ -458,8 +376,10 @@ public class ItemS extends AppCompatActivity {
                 indice++;
             }
 
+
             if (indice == 4) {
 
+                setTotal(getTotal()+1);
                 if (validacionvNombre1.equals("pendiente") || validacionvNombre1.equals("enTramite")) {
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + validacionvNombre1);
@@ -468,7 +388,7 @@ public class ItemS extends AppCompatActivity {
                 } else {
                     Log.i("validacionvNombre2VERDE", "igual a ==" + validacionvNombre1);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 if (validacionvNombre1.equals("rechazado")) {
@@ -486,6 +406,7 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 5) {
 
+                setTotal(getTotal()+1);
                 String color2 = "";
                 if (validacionvNombre2.equals("pendiente") || validacionvNombre2.equals("en Tramite")) {
 
@@ -495,7 +416,7 @@ public class ItemS extends AppCompatActivity {
                 } else {
                     Log.i("validacionvNombre2VERDE", "igual a ==" + validacionvNombre2);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 if (validacionvNombre2.equals("rechazado")) {
@@ -514,6 +435,7 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 6) {
 
+                setTotal(getTotal()+1);
                 if (validacionNombreDoc.equals("pendiente") || validacionNombreDoc.equals("validando")) {
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + validacionNombreDoc);
@@ -522,7 +444,7 @@ public class ItemS extends AppCompatActivity {
                 } else {
                     Log.i("validacionvNombre2VERDE", "igual a ==" + validacionNombreDoc);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 if (validacionNombreDoc.equals("rechazado")) {
@@ -541,6 +463,7 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 7) {
 
+                setTotal(getTotal()+1);
                 if (validacionNombreDoc1.equals("pendiente") || validacionNombreDoc1.equals("validando")) {
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + validacionNombreDoc1);
@@ -549,7 +472,7 @@ public class ItemS extends AppCompatActivity {
                 } else {
                     Log.i("validacionvNombre2VERDE", "igual a ==" + validacionNombreDoc1);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 if (validacionNombreDoc1.equals("rechazado")) {
@@ -568,15 +491,16 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 8) {
 
+                setTotal(getTotal()+1);
                 if (validacionNombreDoc2.equals("pendiente") || validacionNombreDoc2.equals("validando")) {
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + validacionNombreDoc2);
-                    color = "#F9A300";
+                    color = "#E6E6E6";
 
                 } else {
                     Log.i("validacionvNombre2VERDE", "igual a ==" + validacionNombreDoc2);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 if (validacionNombreDoc2.equals("rechazado")) {
@@ -595,10 +519,11 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 9) {
 
+                setTotal(getTotal()+1);
                 if (elaboracionNombre.equals("pendiente")){
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + elaboracionNombre);
-                    color = "#f987898b";
+                    color = "#E6E6E6";
 
                 }
                 if( elaboracionNombre.equals("en Proceso")) {
@@ -609,7 +534,7 @@ public class ItemS extends AppCompatActivity {
                 if ( elaboracionNombre.equals("generado")){
                     Log.i("validacionvNombre2VERDE", "igual a ==" + elaboracionNombre);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
 
@@ -621,10 +546,11 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 10) {
 
+                setTotal(getTotal()+1);
                 if (elaboracionNombre1.equals("pendiente")){
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + elaboracionNombre1);
-                    color = "#f987898b";
+                    color = "#E6E6E6";
 
                 }
                 if( elaboracionNombre1.equals("en Proceso")) {
@@ -635,7 +561,7 @@ public class ItemS extends AppCompatActivity {
                 if ( elaboracionNombre1.equals("generado")){
                     Log.i("validacionvNombre2VERDE", "igual a ==" + elaboracionNombre1);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 items.add(10, new ItemS(elaboracion1, elaboracionNombre1, "Elaboración de documento de importación", color));
@@ -646,10 +572,12 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 11) {
 
+                setTotal(getTotal()+1);
+
                 if (solicitud.equals("pendiente")){
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + solicitud);
-                    color = "#f987898b";
+                    color = "#E6E6E6";
 
                 }
                 if( solicitud.equals("en Proceso")) {
@@ -660,7 +588,7 @@ public class ItemS extends AppCompatActivity {
                 if ( solicitud.equals("generado")){
                     Log.i("validacionvNombre2VERDE", "igual a ==" + solicitud);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 items.add(11, new ItemS("", solicitud, "Solicitud de giro de anticipo", color));
@@ -671,10 +599,11 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 12) {
 
+                setTotal(getTotal()+1);
                 if (pagoTributos.equals("pendiente")){
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + pagoTributos);
-                    color = "#f987898b";
+                    color = "#E6E6E6";
 
                 }
                 if( pagoTributos.equals("en Proceso")) {
@@ -685,7 +614,7 @@ public class ItemS extends AppCompatActivity {
                 if ( pagoTributos.equals("generado")){
                     Log.i("validacionvNombre2VERDE", "igual a ==" + pagoTributos);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 items.add(12, new ItemS("", pagoTributos, "Pago de atributos", color));
@@ -696,10 +625,11 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 13) {
 
+                setTotal(getTotal()+1);
                 if (levante.equals("pendiente")){
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + levante);
-                    color = "#f987898b";
+                    color = "#E6E6E6";
 
                 }
                 if( levante.equals("en Proceso")) {
@@ -710,7 +640,7 @@ public class ItemS extends AppCompatActivity {
                 if ( levante.equals("generado")){
                     Log.i("validacionvNombre2VERDE", "igual a ==" + levante);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 items.add(13, new ItemS("", levante, "Levante", color));
@@ -720,10 +650,11 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 14) {
 
+                setTotal(getTotal()+1);
                 if (retiro.equals("pendiente")){
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + retiro);
-                    color = "#f987898b";
+                    color = "#E6E6E6";
 
                 }
                 if( retiro.equals("en Proceso")) {
@@ -734,7 +665,7 @@ public class ItemS extends AppCompatActivity {
                 if ( retiro.equals("generado")){
                     Log.i("validacionvNombre2VERDE", "igual a ==" + retiro);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 items.add(14, new ItemS("", retiro, "Retiro de mercancia", color));
@@ -745,10 +676,11 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 15) {
 
+                setTotal(getTotal()+1);
                 if (retiro.equals("pendiente")){
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + retiro);
-                    color = "#f987898b";
+                    color = "#E6E6E6";
 
                 }
                 if( retiro.equals("en Proceso")) {
@@ -759,7 +691,7 @@ public class ItemS extends AppCompatActivity {
                 if ( retiro.equals("generado")){
                     Log.i("validacionvNombre2VERDE", "igual a ==" + retiro);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 items.add(15, new ItemS("", retiro, "Entrega de mercancia", color));
@@ -769,10 +701,11 @@ public class ItemS extends AppCompatActivity {
 
             if (indice == 16) {
 
+                setTotal(getTotal()+1);
                 if (retiro.equals("pendiente")){
 
                     Log.i("validacionvNombre2", "ANARANJADOigual a ==" + retiro);
-                    color = "#f987898b";
+                    color = "#E6E6E6";
 
                 }
                 if( retiro.equals("en Proceso")) {
@@ -783,7 +716,7 @@ public class ItemS extends AppCompatActivity {
                 if ( retiro.equals("generado")){
                     Log.i("validacionvNombre2VERDE", "igual a ==" + retiro);
                     color = "#408000";
-
+                    setUnitario(getUnitario()+1);
                 }
 
                 items.add(16, new ItemS("", retiro, "Entrega de documentos", color));

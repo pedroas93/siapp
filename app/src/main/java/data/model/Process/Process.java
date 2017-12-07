@@ -106,37 +106,6 @@ public class Process {
         }
 
 
-        public Integer getV() {
-            return v;
-        }
-
-        public void setV(Integer v) {
-            this.v = v;
-        }
-
-        public List<VistosBueno> getVistosBuenos() {
-            return vistosBuenos;
-        }
-
-        public void setVistosBuenos(List<VistosBueno> vistosBuenos) {
-            this.vistosBuenos = vistosBuenos;
-        }
-
-        public String getMonedaOrigen() {
-            return monedaOrigen;
-        }
-
-        public void setMonedaOrigen(String monedaOrigen) {
-            this.monedaOrigen = monedaOrigen;
-        }
-
-        public String getFechaApertura() {
-            return fechaApertura;
-        }
-
-        public void setFechaApertura(String fechaApertura) {
-            this.fechaApertura = fechaApertura;
-        }
 
         public Integer getBultos() {
             return bultos;

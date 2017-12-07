@@ -2,10 +2,16 @@ package com.example.pedroas93.platzi;
 
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ramotion.foldingcell.FoldingCell;
@@ -27,6 +33,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
         super(context, 0, objects);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // get item for selected view
@@ -55,7 +62,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
             viewHolder.valorBultosContent = (TextView) cell.findViewById(R.id.valorBultosContent);
             viewHolder.valorTasaContent = (TextView) cell.findViewById(R.id.valorTasaContent);
             viewHolder.vv = (TextView) cell.findViewById(R.id.valorValorContent);
-
+            viewHolder.progressBar=(ProgressBar) cell.findViewById(R.id.progressBar);
 
             cell.setTag(viewHolder);
         } else {
@@ -75,7 +82,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
         viewHolder.date.setText(item.getDate());
         viewHolder.fromAddress.setText(item.getFromAddress());
         viewHolder.toAddress.setText(item.getToAddress());
-        viewHolder.pledgePrice.setText(item.getPledgePrice());
+        viewHolder.pledgePrice.setText(Float.toString(item.getPledgePrice())+"%");
         viewHolder.valorGuiaContent.setText(item.getGuia());
         viewHolder.tipoCarta.setText(item.getTime());
         viewHolder.mercancia.setText(item.getFromAddress());
@@ -83,7 +90,8 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
         viewHolder.valorBultosContent.setText(item.getValorBultosContent());
         viewHolder.valorTasaContent.setText("$"+item.getTasaCambio()+" COP");
         viewHolder.vv.setText(item.getValorValorContent());
-
+        viewHolder.progressBar.setProgress(Math.round(item.getPledgePrice()));
+        viewHolder.progressBar.setProgressTintList(ColorStateList.valueOf(Color.rgb(249,163,0)));
 
 // set custom btn handler for list item from that item
         if (item.getRequestBtnClickListener() != null) {
@@ -142,6 +150,10 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
         TextView valorBultosContent;
         TextView valorTasaContent;
         TextView vv;
+        ProgressBar progressBar;
         TextView arribo;
+        RelativeLayout resource;
+        RelativeLayout resource2;
+
     }
 }

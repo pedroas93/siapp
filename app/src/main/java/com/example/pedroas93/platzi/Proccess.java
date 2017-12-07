@@ -2,6 +2,7 @@ package com.example.pedroas93.platzi;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -101,6 +102,13 @@ public class Proccess extends AppCompatActivity {
                     int total =0;
 
                     total =response3.body().getData().getObjectData().getProcess().size()-2;
+
+                    if(response3.body().getData().getObjectData().getProcess().size()==0){
+
+                        Intent noProceso = new Intent(getApplicationContext(), NoProceso.class);
+                        startActivity(noProceso);
+
+                    }
 
                     for(int indice = response3.body().getData().getObjectData().getProcess().size()-1;indice>=0;indice--)
                     {
@@ -338,6 +346,7 @@ public class Proccess extends AppCompatActivity {
         int id= item.getItemId();
 
 
+
         switch (id){
 
             case R.id.menu_opcion:
@@ -348,10 +357,19 @@ public class Proccess extends AppCompatActivity {
 
             ////////////////////////////////////////////////
 
-                mAPIServicePush.updateUser(getIntent().getExtras().getString("parametro"), "", "").enqueue(new Callback<PUT>() {
+
+
+
+                String uno = null,dos = null;
+                Object object = null;
+                Object object1 = null;
+                updateUser up= new updateUser("","");
+                mAPIServicePush.updateUser(getIntent().getExtras().getString("parametro"),up).enqueue(new Callback<PUT>() {
+
 
                     @Override
                     public void onResponse(Call<PUT> call, Response<PUT> response) {
+                        Log.i("ANTES DEL PUSH","ENTRO");
                         if (response.isSuccessful()) {
                             Log.i("ENTRO SENDPUSH","ENTRO");
 
@@ -448,11 +466,14 @@ public class Proccess extends AppCompatActivity {
         // create custom adapter that holds elements and their state (we need hold a id's of unfolded elements for reusable elements)
         final FoldingCellListAdapter adapter = new FoldingCellListAdapter(this, items);
 
+
+
         // set on click event listener to list view
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 // toggle clicked cell state
+                ((FoldingCell) view).initialize(1000 , Color.GRAY ,0);
                 ((FoldingCell) view).toggle(false);
                 // register in adapter that state for selected cell is toggled
                 adapter.registerToggle(pos);
@@ -469,7 +490,7 @@ public class Proccess extends AppCompatActivity {
             public void onClick(View v) {
 
                 Log.i("POSSSSLLEGANDO","POSLLEGANDOOOOOOOOOO ES ="+poss);
-                if(poss ==0 || poss ==1) {
+                if(poss ==0) {
                     Log.i("POSSSSLLEGANDO1","POSLLEGANDOOOOOOOOOO ES ="+poss);
                     Intent irListaP = new Intent(getApplicationContext(), ListaProcesosExport.class);
                     startActivity(irListaP);
@@ -492,15 +513,6 @@ public class Proccess extends AppCompatActivity {
 
 
 
-
-    }
-
-
-
-    private void ir(){
-
-        Intent irListaP = new Intent(getApplicationContext(), ListaProcesosExport.class);
-        startActivity(irListaP);
 
     }
 
